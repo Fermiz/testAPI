@@ -7,8 +7,11 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Welcome</div>
 
-                <div class="panel-body">
-                    欢迎使用抽奖小程序
+                <div class="panel-body center">
+                <h3>欢迎使用抽奖小程序</h3>
+                    <div>
+                    <a class="brand" href="{{ url('/prizes') }}"><img src="../img/home.png" class="logo" /></a>
+                    <div>
                 </div>
             </div>
         </div>

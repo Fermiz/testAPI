@@ -12,7 +12,7 @@ class Prize extends Model
      *
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['name','number'];
     
     /**
      * The attributes that should be cast to native types.

@@ -18,14 +18,16 @@
                         <label for="prize" class="col-sm-3 control-label">奖品</label>
 
                         <div class="col-sm-6">
-                            <input type="text" name="name" id="prize-name" class="form-control"></div>
-
-                        <label for="prize" class="col-sm-3 control-label">数量</label>
-
-                        <div class="col-sm-6">
-                            <input type="text" name="name" id="prize-number" class="form-control"></div>
+                            <input type="text" name="name" id="prize-name" class="form-control"></div>                      
                     </div>
 
+                    <div class="form-group">
+                    <label for="prize" class="col-sm-3 control-label">数量</label>
+
+                        <div class="col-sm-6">
+                            <input type="text" name="number" id="prize-number" class="form-control"></div>
+                            
+                    </div>
                 <!-- Add Task Button -->
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-6">
@@ -47,6 +49,7 @@
                         <!-- Table Headings -->
                         <thead>
                             <th>奖品</th>
+                            <th>数量</th>
                             <th>&nbsp;</th>
                         </thead>
 

@@ -55,8 +55,8 @@ class PrizeController extends Controller
 	public function store(Request $request)
 	{
 	    $this->validate($request, [
-	        'name' => 'required|max:255',
-	        'number' => 'required',
+	        'name' => 'required|max:255|unique:prizes',
+	        'number' => 'required|min:0',
 	    ]);
 
 	    // Create The Prize...
