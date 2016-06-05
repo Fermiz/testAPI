@@ -78,7 +78,7 @@ return [
     ],
     'string'               => 'The :attribute must be a string.',
     'timezone'             => 'The :attribute must be a valid zone.',
-    'unique'               => '已经被注册',
+    'unique'               => '已经被使用',
     'url'                  => 'The :attribute format is invalid.',
 
     /*
