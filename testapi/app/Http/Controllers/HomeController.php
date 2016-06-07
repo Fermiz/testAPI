@@ -72,7 +72,9 @@ class HomeController extends Controller
 
     }
 
-    public function index()
+    
+
+   public function index()
     {
        //refresh_token
        $tokenid= $_GET['tokenid'];
@@ -126,6 +128,18 @@ class HomeController extends Controller
 
        //var_dump($me);
        //var_dump($forms);
-       return view('welcome',['me' => $me,'forms' => $forms]);
+       return view('welcome',['me' => $me,'forms' => $forms,'access_token' => $token->access_token]);
+    }
+
+
+    public function getField()
+    {
+      $form = $_GET["select-form"];
+      $access_token = $_GET["token"];
+        if(isset($form)){ 
+            $detailurl = 'https://api.jinshuju.net/v4/forms/'.$form.'?access_token='.$access_token;
+            $select = json_decode(file_get_contents($detailurl),true);
+            echo $select; 
+          }
     }
 }

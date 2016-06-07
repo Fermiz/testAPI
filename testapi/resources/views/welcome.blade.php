@@ -10,41 +10,41 @@
                 <div class="panel-body center">
                 <!-- <h3>欢迎使用抽奖小程序</h3> -->
                 <div>
-                    <form action="{{ url('prize') }}" method="POST" class="form-horizontal center">
+                    <form action="{{ url('prize') }}" method="POST" class="form-horizontal">
                     {{ csrf_field() }}
 
-                    <div id="select-form" class="form-group">
+                    <div id="select-form" class="form-group center">
                         <label for="prize" class="col-sm-3 control-label">关联表单</label>
-
+                        <input id="access_token" type="hidden" value="{{$access_token}}"> 
                         <div class="col-sm-6">
                             <select class="select-control"> 
                               @foreach ($forms as $form)
-                              <option>{{$form['name']}}</option>
+                              <option value="{{$form['token']}}">{{$form['name']}}</option>
                               @endforeach
                             </select>
                         </div>
                     </div>
 
-                    <div id="select-name" class="form-group">
+                    <div id="select-name" class="form-group hide">
                         <label for="prize" class="col-sm-3 control-label">姓名字段</label>
 
                         <div class="col-sm-6">
                             <select class="select-control"> 
-                              @foreach ($forms as $form)
+                              <!-- @foreach ($forms as $form)
                               <option>{{$form['name']}}</option>
-                              @endforeach
+                              @endforeach -->
                             </select>
                         </div>
                     </div>
 
-                    <div id="select-phone" class="form-group">
+                    <div id="select-phone" class="form-group hide">
                         <label for="prize" class="col-sm-3 control-label">手机字段</label>
 
                         <div class="col-sm-6">
                             <select class="select-control"> 
-                              @foreach ($forms as $form)
+                              <!-- @foreach ($forms as $form)
                               <option>{{$form['name']}}</option>
-                              @endforeach
+                              @endforeach -->
                             </select>
                         </div>
                     </div>

@@ -26,6 +26,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/home/callback', 'HomeController@call');
     Route::get('/home', 'HomeController@index');
+    Route::get('/field', 'HomeController@getfield');
 
     Route::get('/prizes', 'PrizeController@index');
     Route::post('/prize', 'PrizeController@store');
