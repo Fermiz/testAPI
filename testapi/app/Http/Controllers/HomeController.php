@@ -34,14 +34,14 @@ class HomeController extends Controller
             "code" => $_GET['code'],
             "redirect_uri" => "http://localhost/home/callback",
             'grant_type' => isset($options['grant_type']) ? $options['grant_type'] : 'authorization_code',
-            'header'    => isset($options['header']) ? $options['header'] : '',
+            //'header'    => isset($options['header']) ? $options['header'] : '',
             );
        
         $postdata = http_build_query($params);
         $opts = array(
                     'http' => array(
                         'method'  => 'POST',
-                        'header'  => 'Content-type: application/x-www-form-urlencoded'. PHP_EOL . $params['header'],
+                        'header'  => 'Content-type: application/x-www-form-urlencoded'. PHP_EOL ,//. $params['header'],
                         'content' => $postdata
                     )
                 );

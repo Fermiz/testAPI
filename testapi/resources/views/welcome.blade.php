@@ -16,7 +16,6 @@
                                选择表单
                         </button>
                     <form action="{{ url('prize') }}" method="POST" class="form-horizontal">
-                        {{csrf_field()}}
                         <div id="select-form" class="form-group center">
                             <label for="prize" class="col-sm-3 control-label">关联表单</label>
                             <input name ="access_token" id="access_token" type="hidden" value="{{$access_token}}">
