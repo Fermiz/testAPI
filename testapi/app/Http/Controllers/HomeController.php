@@ -33,7 +33,7 @@ class HomeController extends Controller
             "client_secret" => "7d785526a9fa3b1c3c2cd7c77fc9746ad6950ec629da0c565e005186e0b8a8c0",
             "code" => $_GET['code'],
             "redirect_uri" => "http://localhost/home/callback",
-            'grant_type' => isset($options['grant_type']) ? $options['grant_type'] : 'authorization_code',
+            'grant_type' => 'authorization_code'//isset($options['grant_type']) ? $options['grant_type'] : 'authorization_code',
             //'header'    => isset($options['header']) ? $options['header'] : '',
             );
        
