@@ -71,7 +71,6 @@ $(document).ready(function(){
 
     //关联表单
     $("#selectForm").change(function(){ 
-        $("#begin").attr("disabled", false);
         if ($("#selectForm").val() == "nochoice"){
             $("#select-name").addClass("hide");
             $("#select-phone").addClass("hide");
@@ -90,7 +89,6 @@ $(document).ready(function(){
     }); 
 
     $("#select-name").change(function(){ 
-        
         if ($("#selectName").val() == "nochoice"){
             $("#begin").attr("disabled", true);
             $("#nochoice").click();
@@ -98,11 +96,12 @@ $(document).ready(function(){
     }); 
 
     $("#select-phone").change(function(){ 
-        
+        $("#begin").attr("disabled", false);
         if ($("#selectPhone").val() == "nochoice"){
             $("#begin").attr("disabled", true);
             $("#nochoice").click();
         }
+
     });
 
     //开始抽奖
