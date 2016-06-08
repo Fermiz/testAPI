@@ -60,7 +60,8 @@ function getWinners(){
     });
 } 
 
-$(document).ready(function(){   
+$(document).ready(function(){ 
+    $("#begin").attr("disabled", true);
     var num = $(".phonenum");
     for(i=0;i<num.length;i++)
     {
@@ -70,10 +71,11 @@ $(document).ready(function(){
 
     //关联表单
     $("#selectForm").change(function(){ 
-        
+        $("#begin").attr("disabled", false);
         if ($("#selectForm").val() == "nochoice"){
             $("#select-name").addClass("hide");
             $("#select-phone").addClass("hide");
+            $("#begin").attr("disabled", true);
             $("#nochoice").click();
         }else{
 
@@ -90,6 +92,7 @@ $(document).ready(function(){
     $("#select-name").change(function(){ 
         
         if ($("#selectName").val() == "nochoice"){
+            $("#begin").attr("disabled", true);
             $("#nochoice").click();
         }
     }); 
@@ -97,6 +100,7 @@ $(document).ready(function(){
     $("#select-phone").change(function(){ 
         
         if ($("#selectPhone").val() == "nochoice"){
+            $("#begin").attr("disabled", true);
             $("#nochoice").click();
         }
     });
