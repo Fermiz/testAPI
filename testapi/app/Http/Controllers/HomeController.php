@@ -41,7 +41,7 @@ class HomeController extends Controller
         $opts = array(
                     'http' => array(
                         'method'  => 'POST',
-                        'header'  => 'Content-type: application/x-www-form-urlencoded'. PHP_EOL ,//. $params['header'],
+                        'header'  => 'Content-type: application/x-www-form-urlencoded',//. PHP_EOL . $params['header'],
                         'content' => $postdata
                     )
                 );
