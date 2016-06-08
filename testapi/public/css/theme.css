@@ -14,7 +14,7 @@
     outline: none;
     overflow: hidden;
     position: relative;
-    width: 80%;
+    width: 100%;
 }
 
 .select-value{  
@@ -35,5 +35,9 @@
 
 .hide {
     display: none;
+}
+
+.right{
+    text-align: right;
 }
 

@@ -26,12 +26,13 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/home/callback', 'HomeController@call');
     Route::get('/home', 'HomeController@index');
-    Route::get('/field', 'HomeController@getfield');
 
-    Route::get('/prizes', 'PrizeController@index');
-    Route::post('/prize', 'PrizeController@store');
-    Route::delete('/prize/{prize}', 'PrizeController@destroy');
+    Route::get('/field', 'HomeController@field');
 
-    Route::auth();
+    Route::get('/prize/winners', 'PrizeController@winner');
+    Route::post('/prize', 'PrizeController@index');
+    //Route::delete('/prize/{prize}', 'PrizeController@destroy');
+
+    //Route::auth();
 
 });

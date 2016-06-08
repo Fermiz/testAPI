@@ -71,13 +71,12 @@ class HomeController extends Controller
         return redirect("/home"."?tokenid=".$token->id);
 
     }
-
     
 
-   public function index()
+   public function index(Request $request)
     {
        //refresh_token
-       $tokenid= $_GET['tokenid'];
+       $tokenid= $request->tokenid;
 
        $token = DB::table('tokens')->where('id', $tokenid)->first();
        
@@ -85,7 +84,7 @@ class HomeController extends Controller
        $current_time = Carbon::now();
 
        $expires_time = strtotime($token->updated_at) + $token->expires_in;
-
+       //令牌超时刷新
        if (strtotime($current_time) >= $expires_time){
             $tokenurl = "https://account.jinshuju.net/oauth/token";
             $params = array(
@@ -128,18 +127,34 @@ class HomeController extends Controller
 
        //var_dump($me);
        //var_dump($forms);
-       return view('welcome',['me' => $me,'forms' => $forms,'access_token' => $token->access_token]);
+       return view('welcome',['me' => $me['email'],'forms' => $forms,'access_token' => $token->access_token]);
     }
 
 
-    public function getField()
+    public function field(Request $request)
     {
-      $form = $_GET["select-form"];
-      $access_token = $_GET["token"];
+      $form = $request->select_form;
+      $access_token = $request->access_token;
         if(isset($form)){ 
             $detailurl = 'https://api.jinshuju.net/v4/forms/'.$form.'?access_token='.$access_token;
             $select = json_decode(file_get_contents($detailurl),true);
-            echo $select; 
+
+            return json_encode($select['fields']);
           }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

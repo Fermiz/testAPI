@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTokensTable extends Migration
+class CreateCustomersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,14 @@ class CreateTokensTable extends Migration
      */
     public function up()
     {
-        Schema::create('tokens', function (Blueprint $table) {
+        Schema::create('customers', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('access_token')->index();
-            $table->string('token_type');
-            $table->integer('expires_in');
-            $table->string('refresh_token');
-            $table->string('scope');
+            $table->string('user');
+            $table->string('form')->index();
+            $table->string('name');
+            $table->string('phone');
+            $table->string('address');
+            $table->boolean('won');
             $table->timestamps();
         });    }
 
@@ -29,6 +30,6 @@ class CreateTokensTable extends Migration
      */
     public function down()
     {
-         Schema::drop('tokens');
+         Schema::drop('customers');
     }
 }
