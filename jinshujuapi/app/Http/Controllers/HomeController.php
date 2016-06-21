@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Socialite;
 use App\Http\Requests;
@@ -33,32 +33,36 @@ class HomeController extends Controller
     }
 
 
-    public function callback() {
+    public function callback(Request $request) {
         $oauthUser = \Socialite::with('jinshuju')->user();
 
-        var_dump($oauthUser->getNickname());
-        var_dump($oauthUser->getEmail());
-        var_dump($oauthUser->getAvatar());
-        var_dump($oauthUser->getToken());
-        var_dump($oauthUser->getRefreshToken());
-        var_dump($oauthUser->getExpiresIn());
-
-        $oauthUser2 = \Socialite::with('jinshuju')->refresh($oauthUser->getRefreshToken());
-
-        var_dump($oauthUser2->getNickname());
-        var_dump($oauthUser2->getEmail());
-        var_dump($oauthUser2->getAvatar());
-        var_dump($oauthUser2->getToken());
-        var_dump($oauthUser2->getRefreshToken());
-        var_dump($oauthUser2->getExpiresIn());
-        
-        //return redirect("/home"."?token=".$oauthUser->getToken());
+        return redirect("/home");
     }
 
-    public function index() {
-        
-        $oauthUser = \Socialite::with('jinshuju')->user();
+    public function index(Request $request) {
 
+        \Socialite::with('jinshuju')->refresh();
+
+        $ExpiresIn = session('expires_in');
+        $token = session('access_token');
+        $refreshToken = session('refresh_token');
+        $email= session('email');
+
+        $forms = \Socialite::with('jinshuju')->getFormByToken($token);
+
+        return view('welcome',['me' => $email,'forms' => $forms,'token' => $token]);
+
+    }
+
+    public function field(Request $request)
+    {
+      $form = $request->select_form;
+      $token = session('access_token');
+      if(isset($form)){ 
+        $fields = \Socialite::with('jinshuju')->getFeildByToken($form,$token);
+
+        return $fields;
+      }
     }
 
 }

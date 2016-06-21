@@ -11,10 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/', 'HomeController@auth');
+
 Route::get('/home/callback', 'HomeController@callback');
 Route::get('/home', 'HomeController@index');
+
+Route::get('/field', 'HomeController@field');
+
+Route::post('/prize', 'PrizeController@index');
+
+Route::get('/prize/winners', 'PrizeController@winner');
