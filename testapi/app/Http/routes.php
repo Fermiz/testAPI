@@ -23,7 +23,8 @@ Route::group(['middleware' => ['web']], function () {
 
         return redirect("https://account.jinshuju.net/oauth/authorize?client_id={$client_id}&response_type={$response_type}&redirect_uri={$redirect_uri}&scope={$scope}");
     });
-
+    //Route::get('/', 'HomeController@call');
+    //Route::get('/home/callback', 'HomeController@test2');
     Route::get('/home/callback', 'HomeController@call');
     Route::get('/home', 'HomeController@index');
 

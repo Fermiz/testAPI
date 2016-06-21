@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DB;
 use Carbon\Carbon;
+use Socialite;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
@@ -142,6 +143,21 @@ class HomeController extends Controller
             return json_encode($select['fields']);
           }
     }
+
+    public function test1()
+    {
+      return \Socialite::with('jinshuju')->redirect();
+    }
+
+    public function test2()
+    {
+       $oauthUser = \Socialite::with('jinshuju')->user();
+
+        var_dump($oauthUser->getEmail());
+        var_dump($oauthUser->getNickname());
+        var_dump($oauthUser->getAvatar());
+    }
+
 }
 
 

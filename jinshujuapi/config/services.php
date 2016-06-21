@@ -35,4 +35,10 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'jinshuju' => [
+    'client_id' => env('JINSHUJU_KEY'),
+    'client_secret' => env('JINSHUJU_SECRET'),
+    'redirect' => env('JINSHUJU_REDIRECT_URI'),  
+    ],
+
 ];
