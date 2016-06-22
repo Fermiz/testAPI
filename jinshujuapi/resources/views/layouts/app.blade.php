@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <!-- Styles -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
 
     <link href="css/theme.css" rel="stylesheet">
@@ -61,7 +62,7 @@
                             </ul>
                         </li>
                     @endif -->
-                    <li><a href="">{{$me}}</a></li>
+                    <li><a href="/">{{$me}}</a></li>
                 </ul>
             </div>
         </div>

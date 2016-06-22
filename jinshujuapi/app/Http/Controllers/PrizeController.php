@@ -13,23 +13,24 @@ class PrizeController extends Controller
     
     public function index(Request $request)
     {
-
+    	Socialite::with('jinshuju')->refresh();
         $formid = $request->form;
         $nameid = $request->name;
         $phoneid = $request->phone;
         $me = $request->me;
 
+        session(['formid'=> $formid]);
         $token= session('access_token');
+        
         date_default_timezone_set('Asia/Shanghai');
         $current_time = Carbon::now();
 
         //获取数据
         if(isset($formid)){ 
             
-            $data = \Socialite::with('jinshuju')->getDataByToken($formid,$token);
+            $data = Socialite::with('jinshuju')->getDataByToken($formid,$token);
 
             $count = count($data);
-            $i = 0;
             
             for($i=0; $i<$count; $i++){        
               
@@ -40,7 +41,7 @@ class PrizeController extends Controller
                   }
 
                   $search = DB::table('users')->where([
-                                ['user',$me],
+                                ['user',$me	],
                                 ['form',$formid],
                                 ['phone',$data[$i]["$phoneid"]['value']]
                                 ])->count();
@@ -99,7 +100,7 @@ class PrizeController extends Controller
     {
         $me = $request->me;
         $formid = $request->form;
-        $chance = 10;
+
         $users = DB::table('users')->orderBy('id')
                         ->where([
                                 ['user',$me],
@@ -107,23 +108,43 @@ class PrizeController extends Controller
                                 ])
                         ->get();
 
-        
+        $chance = count($users);
+
         foreach ($users as $user){
-            $randNum = mt_rand(0, $chance);
-            DB::table('users')
-                     ->where('id', $user->id)
-                     ->update(['won' => false]);
-            if($randNum == 0){
-                DB::table('users')
-                     ->where('id', $user->id)
-                     ->update(['won' => true]);
-            }
-        };
+	      DB::table('users')->orderBy('id')
+	                        ->where([
+	                                ['user',$me],
+	                                ['form',$formid]
+	                                ])
+	                        ->update(['won' => 0]);
+		}
+
+        $prizes = DB::table('prizes')->orderBy('id')
+			                        ->where([
+			                                ['email',$me],
+			                                ['form',$formid]
+			                                ])
+			                        ->get();  
+
+        foreach ($prizes as $prize){
+            
+            $max = $chance*$prize->chance;
+
+			for($i=0; $i< $max; $i++){  
+
+				$winId = mt_rand(0, $chance);
+
+			    DB::table('users')
+			         ->where('id', $winId)
+			         ->update(['won' => 1]);
+
+			}
+		}
 
         $winners = DB::table('users')->orderBy('id')->where([
                             ['user',$me],
                             ['form',$formid],
-                            ['won',true]
+                            ['won',1]
                             ])->get();
 
 

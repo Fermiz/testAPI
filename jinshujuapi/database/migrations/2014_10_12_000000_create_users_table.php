@@ -12,16 +12,18 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
+        Schema::drop('users');
         Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
+             $table->increments('id');
             $table->string('user');
             $table->string('form')->index();
             $table->string('name');
-            $table->string('phone');
+            $table->string('phone')->unique();
             $table->string('address');
-            $table->tinyInteger('won');
+            $table->tinyInteger('won')->default(0);
             $table->timestamps();
         });
+
     }
 
     /**

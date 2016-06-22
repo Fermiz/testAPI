@@ -10,8 +10,10 @@
         <div class="panel center">
             <input id="me" type="hidden" value="{{$me}}">
             <input id="form" type="hidden" value="{{$form}}">
+            
             <button id="start" class="btn btn-danger">开始抽奖</button>
-            <button id="again" class="btn btn-danger hide">重新开始</button>
+            <button id="again" class="btn btn-danger hide"><i class="fa fa-btn fa-refresh"></i>重新开始</button>
+            <div id="setting" class="setting"><a href="/settings"><i class="fa fa-btn fa-cog"></i>奖品设置</a></div>
         </div>
         <!-- TODO: 中奖用户 -->
         <div id="winners" class="panel panel-default hide">
