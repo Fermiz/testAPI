@@ -10,7 +10,7 @@
                 <!-- Display Validation Errors -->
                 @include('common.errors')
                 <!-- New Prize Form -->
-                <form action="{{ url('setting') }}" method="POST" class="form-horizontal">
+                <form id="add-prize" action="{{ url('setting') }}" method="POST" class="form-horizontal">
                     {{ csrf_field() }}
                     <!-- Prize Name -->
                     <div class="form-group">
@@ -22,7 +22,7 @@
 
                     <!-- Prize Number -->
                     <div class="form-group">
-                        <label for="prize-number" class="col-sm-3 control-label">奖品数量</label>
+                        <label for="prize-number" class="col-sm-3 control-label" >奖品数量</label>
 
                         <div class="col-sm-6">
                             <input type="text" name="number" id="prize-number" class="form-control" value="{{ old('prize') }}"></div>
@@ -30,7 +30,7 @@
 
                     <!-- Prize Chance-->
                     <div class="form-group">
-                        <label for="prize-chance" class="col-sm-3 control-label">中奖概率</label>
+                        <label for="prize-chance" class="col-sm-3 control-label" >中奖概率</label>
 
                         <div class="col-sm-6">
                             <input type="text" name="chance" id="prize-chance" class="form-control" value="{{ old('prize') }}"></div>
@@ -104,4 +104,5 @@
         @endif
     </div>
 </div>
+
 @endsection

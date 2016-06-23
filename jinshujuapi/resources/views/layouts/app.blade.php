@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrapValidator.min.css">
     <!-- {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}} -->
 
     <link href="css/theme.css" rel="stylesheet">
@@ -74,7 +75,10 @@
     <!-- JavaScripts -->
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/forms.js"></script> 
+    <script type="text/javascript" src="js/bootstrapValidator.min.js"></script>
+    <script type="text/javascript" src="js/welcome.blade.js"></script> 
+    <script type="text/javascript" src="js/prizes.blade.js"></script> 
+    <script type="text/javascript" src="js/setting.blade.js"></script> 
     <!-- {{-- <script src="{{ elixir('js/app.js') }}"></script> --}} -->
 </body>
 </html>

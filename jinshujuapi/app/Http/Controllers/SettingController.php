@@ -62,9 +62,9 @@ class SettingController extends Controller
                             ['user',$me],
                             ['form',$formid]
                             ])->get();
-
-        return view('setting', ['me' => $me,'prizes' => $this->prizes
-        ]);
+        
+        return view('setting', ['me' => $me,'prizes' => $this->prizes]);
+       
     }
 
     /**
