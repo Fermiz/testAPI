@@ -27,7 +27,8 @@ Route::get('/prizes', 'PrizeController@index');
 Route::get('/prize/winners', 'PrizeController@winner');
 
 Route::get('/reset', 'SettingController@reset');
-//Route::get('/settings', 'SettingController@index');
+
+Route::get('/settings', 'SettingController@index');
 
 Route::post('/settings', 'SettingController@index');
 
