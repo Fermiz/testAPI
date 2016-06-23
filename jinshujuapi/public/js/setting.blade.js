@@ -25,6 +25,7 @@ $(document).ready(function(){
                           },
                           between: {
                               min: 0,
+                              max: 999999,
                               message: '奖品数量必须为大于0的整数'
                           },
                       }
