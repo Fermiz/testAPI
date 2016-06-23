@@ -10,7 +10,7 @@
                 <div class="panel-body center">
                 <h3>欢迎使用抽奖小程序</h3>
                     <div>
-                    <a class="brand" href="{{ url('/prizes') }}"><img src="../img/home.png" class="logo" /></a>
+                    <a class="brand" href="{{ url('home') }}"><img src="../img/home.png" class="logo" /></a>
                     </div>
             </div>
         </div>

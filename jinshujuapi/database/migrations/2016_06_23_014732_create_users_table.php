@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePrizesTable extends Migration
+class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,16 +12,18 @@ class CreatePrizesTable extends Migration
      */
     public function up()
     {
-        Schema::drop('prizes');
-        Schema::create('prizes', function (Blueprint $table) {
+        Schema::dropIfExists('users');
+        Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('email')->index();
-            $table->string('form');
-            $table->string('name')->unique();
-            $table->integer('number');
-            $table->float('chance');
+            $table->string('nickname');
+            $table->string('avatar');
+            $table->string('access_token');
+            $table->string('refresh_token');
+            $table->integer('expires_in');
             $table->timestamps();
         });
+
     }
 
     /**
@@ -31,6 +33,6 @@ class CreatePrizesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('tasks');
+        Schema::drop('users');
     }
 }

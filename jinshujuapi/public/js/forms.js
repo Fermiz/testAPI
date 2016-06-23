@@ -33,10 +33,7 @@ function getWinners(){
         type:'GET',
         url:'/prize/winners',
         dataType:"json",
-        data:{
-              me:$("#me").val(),
-              form:$("#form").val() 
-             },
+        data:{},
         timeout:30000,
         error:function(){
             alert("wrong");

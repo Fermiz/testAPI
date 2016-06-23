@@ -42,6 +42,7 @@
                             <button type="submit" class="btn btn-default"> <i class="fa fa-btn fa-plus"></i>
                                 添加奖品
                             </button>
+                            <a href="/prizes" class="btn btn-primary">进入抽奖</a>
                         </div>
                     </div>
                 </form>
@@ -66,7 +67,7 @@
                         @foreach ($prizes as $prize)
                         <tr>
                             <td class="table-text">
-                                <div>{{ $prize->id }}</div>
+                                <div>{{ $prize->pid }}</div>
                             </td>
 
                             <td class="table-text">

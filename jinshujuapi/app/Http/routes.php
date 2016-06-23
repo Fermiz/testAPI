@@ -22,10 +22,15 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/field', 'HomeController@field');
 
-Route::post('/prize', 'PrizeController@index');
+Route::get('/prizes', 'PrizeController@index');
 
 Route::get('/prize/winners', 'PrizeController@winner');
 
-Route::get('/settings', 'SettingController@index');
+Route::get('/reset', 'SettingController@reset');
+//Route::get('/settings', 'SettingController@index');
+
+Route::post('/settings', 'SettingController@index');
+
 Route::post('/setting', 'SettingController@store');
+
 Route::delete('/setting/{prize}', 'SettingController@destroy');

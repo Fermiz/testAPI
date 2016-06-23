@@ -8,10 +8,11 @@
 
     <!-- Fonts -->
     <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
+
     <!-- Styles -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
-    {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
+    <!-- {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}} -->
 
     <link href="css/theme.css" rel="stylesheet">
 
@@ -74,6 +75,6 @@
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/forms.js"></script> 
-    {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+    <!-- {{-- <script src="{{ elixir('js/app.js') }}"></script> --}} -->
 </body>
 </html>

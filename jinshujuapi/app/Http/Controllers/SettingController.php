@@ -27,11 +27,40 @@ class SettingController extends Controller
     public function index(Request $request)
     {
         Socialite::with('jinshuju')->refresh();
+        $formid = $request->form;
+        $nameid = $request->name;
+        $phoneid = $request->phone;
 
         $me= session('email');
+        session(['form'=> $formid]);
+        session(['name'=> $nameid]);
+        session(['phone'=> $phoneid]);
 
         $this->prizes = DB::table('prizes')->orderBy('id')->where([
-                            ['email',$me],
+                            ['user',$me],
+                            ['form',$formid]
+                            ])->get();
+
+        return view('setting', ['me' => $me,'prizes' => $this->prizes
+        ]);
+    }
+
+    /**
+     * Display a list of all of the user's prize.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function reset(Request $request)
+    {
+        Socialite::with('jinshuju')->refresh();
+        
+        $me= session('email');
+        $formid = session('form');
+
+        $this->prizes = DB::table('prizes')->orderBy('id')->where([
+                            ['user',$me],
+                            ['form',$formid]
                             ])->get();
 
         return view('setting', ['me' => $me,'prizes' => $this->prizes
@@ -47,22 +76,31 @@ class SettingController extends Controller
     public function store(Request $request)
     {
         Socialite::with('jinshuju')->refresh();
-        $email= session('email');
-        $form= session('formid');
+        $me= session('email');
+        $form= session('form');
 
         $this->validate($request, [
-            'name' => 'required|unique:prizes',
+            'name' => 'required',
             'number' => 'required|integer|min:0',
-            'chance' => 'required|min:0',
+            'chance' => 'required|numeric|min:0|max:1',
         ]);
+
+        $prizes = DB::table('prizes')->orderBy('id')
+			                        ->where([
+			                                ['user',$me],
+			                                ['form',$form]
+			                                ])
+			                        ->get();  
+         $pid = count($prizes) + 1;
         
         date_default_timezone_set('Asia/Shanghai');
         $current_time = Carbon::now();
 
         DB::table('prizes')->insert(
                     [ 
-                      'email' => $email,
+                      'user' => $me,
                       'form' => $form,
+                      'pid' => $pid,
                       'name' => $request->name,
                       'number' => $request->number, 
                       'chance' => $request->chance,  
@@ -71,7 +109,7 @@ class SettingController extends Controller
                     ]
                     );
 
-        return redirect('/settings');
+        return redirect('/reset');
     }
 
     /**
@@ -88,6 +126,6 @@ class SettingController extends Controller
                                   ['id',$prizeId],
                                  ])->delete();
 
-        return redirect('/settings');
+        return redirect('/reset');
     }
 }

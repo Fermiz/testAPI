@@ -14,21 +14,21 @@ class PrizeController extends Controller
     public function index(Request $request)
     {
     	Socialite::with('jinshuju')->refresh();
-        $formid = $request->form;
-        $nameid = $request->name;
-        $phoneid = $request->phone;
-        $me = $request->me;
-
-        session(['formid'=> $formid]);
-        $token= session('access_token');
         
+        $token = session('access_token');
+        $me= session('email');
+        $from = session('form');
+        $nameid = session('name');
+        $phoneid = session('phone');
+
+
         date_default_timezone_set('Asia/Shanghai');
         $current_time = Carbon::now();
 
         //获取数据
-        if(isset($formid)){ 
+        if(isset($from)){ 
             
-            $data = Socialite::with('jinshuju')->getDataByToken($formid,$token);
+            $data = Socialite::with('jinshuju')->getDataByToken($from,$token);
 
             $count = count($data);
             
@@ -40,16 +40,16 @@ class PrizeController extends Controller
                      continue;
                   }
 
-                  $search = DB::table('users')->where([
+                  $search = DB::table('customers')->where([
                                 ['user',$me	],
-                                ['form',$formid],
+                                ['form',$from],
                                 ['phone',$data[$i]["$phoneid"]['value']]
                                 ])->count();
                   if($search == 0){
-                    DB::table('users')->insert(
+                    DB::table('customers')->insert(
                     [ 
                       'user' => $me,
-                      'form' => $formid,
+                      'form' => $from,
                       'name' => $data[$i]["$nameid"], 
                       'phone' => $data[$i]["$phoneid"]['value'],  
                       'created_at' => $current_time,
@@ -63,17 +63,17 @@ class PrizeController extends Controller
                     continue;
                 }
 
-                $search = DB::table('users')->where([
+                $search = DB::table('customers')->where([
                             ['user',$me],
-                            ['form',$formid],
+                            ['form',$from],
                             ['phone',$data[$i]["$phoneid"]]
                             ])->count();
 
                 if($search == 0){
-                    DB::table('users')->insert(
+                    DB::table('customers')->insert(
                     [ 
                       'user' => $me,
-                      'form' => $formid,
+                      'form' => $from,
                       'name' => $data[$i]["$nameid"], 
                       'phone' => $data[$i]["$phoneid"],  
                       'created_at' => $current_time,
@@ -87,42 +87,42 @@ class PrizeController extends Controller
             }
           }
 
-        $users = DB::table('users')->orderBy('id')->where([
+        $customers = DB::table('customers')->orderBy('id')->where([
                             ['user',$me],
-                            ['form',$formid]
+                            ['form',$from]
                             ])->get();
 
-        return view('prizes',['me' => $me,'form' =>$formid,'users' => $users]);
+        return view('prizes',['me' => $me,'form' =>$from,'customers' => $customers]);
     
     }
 
     public function winner(Request $request)
     {
-        $me = $request->me;
-        $formid = $request->form;
+        $me= session('email');
+        $from = session('form');
 
-        $users = DB::table('users')->orderBy('id')
+        $customers = DB::table('customers')->orderBy('id')
                         ->where([
                                 ['user',$me],
-                                ['form',$formid]
+                                ['form',$from]
                                 ])
                         ->get();
 
-        $chance = count($users);
+        $chance = count($customers);
 
-        foreach ($users as $user){
-	      DB::table('users')->orderBy('id')
+        foreach ($customers as $customer){
+	      DB::table('customers')->orderBy('id')
 	                        ->where([
 	                                ['user',$me],
-	                                ['form',$formid]
+	                                ['form',$from]
 	                                ])
-	                        ->update(['won' => 0]);
+	                        ->update(['prize' => 0]);
 		}
 
         $prizes = DB::table('prizes')->orderBy('id')
 			                        ->where([
-			                                ['email',$me],
-			                                ['form',$formid]
+			                                ['user',$me],
+			                                ['form',$from]
 			                                ])
 			                        ->get();  
 
@@ -134,17 +134,17 @@ class PrizeController extends Controller
 
 				$winId = mt_rand(0, $chance);
 
-			    DB::table('users')
+			    DB::table('customers')
 			         ->where('id', $winId)
-			         ->update(['won' => 1]);
+			         ->update(['prize' => $prize->id]);
 
 			}
 		}
 
-        $winners = DB::table('users')->orderBy('id')->where([
+        $winners = DB::table('customers')->orderBy('id')->where([
                             ['user',$me],
-                            ['form',$formid],
-                            ['won',1]
+                            ['form',$from],
+                            ['prize',2]
                             ])->get();
 
 

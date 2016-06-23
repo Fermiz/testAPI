@@ -15,12 +15,11 @@
                                data-target="#formModal">
                                选择表单
                         </button>
-                    <form action="{{ url('prize') }}" method="POST" class="form-horizontal">
+                    <form action="{{ url('settings') }}" method="POST" class="form-horizontal">
                         <div id="select-form" class="form-group center">
                             <label for="prize" class="col-sm-3 control-label">关联表单</label>
                             <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
-                            <input name ="access_token" id="access_token" type="hidden" value="{{$token}}">
-                            <input name ="me" id="me" type="hidden" value="{{$me}}">
+
                             <div class="col-sm-6">
                                 <select name="form" id="selectForm" class="select-control">
                                     <option value="nochoice" selected="selected">请选择表单</option>
@@ -52,8 +51,10 @@
                                 <button id="begin" type="submit" class="btn btn-default">进入抽奖</button>
                             </div>
                         </div>
+
                     </form>
                 </div>
+
                 <!-- <div>
                 <a class="brand" href="{{ url('/prizes') }}">
                     <img src="../img/home.png" class="logo" />
