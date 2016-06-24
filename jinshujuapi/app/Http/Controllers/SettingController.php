@@ -32,6 +32,7 @@ class SettingController extends Controller
         $phoneid = $request->phone;
 
         $me= session('email');
+        //将当前表单存到session中
         session(['form'=> $formid]);
         session(['name'=> $nameid]);
         session(['phone'=> $phoneid]);
@@ -56,11 +57,11 @@ class SettingController extends Controller
         Socialite::with('jinshuju')->refresh();
         
         $me= session('email');
-        $formid = session('form');
+        $form = session('form');
 
         $this->prizes = DB::table('prizes')->orderBy('id')->where([
                             ['user',$me],
-                            ['form',$formid]
+                            ['form',$form]
                             ])->get();
         
         return view('setting', ['me' => $me,'prizes' => $this->prizes]);

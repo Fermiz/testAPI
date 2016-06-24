@@ -20,7 +20,7 @@ function getWinners(){
                    <div>"+ data[i].phone+"</div></td><td class='table-text'><div>"+ data[i].prize+"</div></td></tr>";
                 }                                            
                 $("#list thead").append("<th>姓名</th><th>手机</th><th>奖项</th>");
-                $("#list thead th").css("padding","0 0 0 6px");
+                $("#list thead th").css("padding","0 0 0 8px");
                 $("#list tbody").append(prize);
             }else{
                 $("#list thead").append("<th>很遗憾没有人中奖~</th>");

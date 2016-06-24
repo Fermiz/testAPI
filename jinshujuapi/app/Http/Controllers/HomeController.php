@@ -33,7 +33,7 @@ class HomeController extends Controller
 
 
     public function callback(Request $request) {
-        $oauthUser = Socialite::with('jinshuju')->user();
+        Socialite::with('jinshuju')->user();
   
         return redirect("/home");
     }
@@ -46,10 +46,7 @@ class HomeController extends Controller
         $user = DB::table('users')->where('email',$email)
                                   ->get();
 
-        $ExpiresIn = $user[0]->expires_in;
         $token = $user[0]->access_token;
-        $refreshToken = $user[0]->refresh_token;
-
 
         $forms = Socialite::with('jinshuju')->getFormByToken($token);
 

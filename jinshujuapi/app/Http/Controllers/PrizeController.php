@@ -15,8 +15,12 @@ class PrizeController extends Controller
     {
     	Socialite::with('jinshuju')->refresh();
         
-        $token = session('access_token');
         $me= session('email');
+        $user = DB::table('users')->where('email',$me)
+                                  ->get();
+
+        $token = $user[0]->access_token;
+
         $from = session('form');
         $nameid = session('name');
         $phoneid = session('phone');
@@ -113,12 +117,12 @@ class PrizeController extends Controller
     public function winner(Request $request)
     {
         $me= session('email');
-        $from = session('form');
+        $form = session('form');
 
         $customers = DB::table('customers')->orderBy('id')
                         ->where([
                                 ['user',$me],
-                                ['form',$from]
+                                ['form',$form]
                                 ])
                         ->get();
 
@@ -135,7 +139,7 @@ class PrizeController extends Controller
         $prizes = DB::table('prizes')->orderBy('id')
 			                        ->where([
 			                                ['user',$me],
-			                                ['form',$from]
+			                                ['form',$form]
 			                                ])
 			                        ->get();  
 
@@ -155,7 +159,7 @@ class PrizeController extends Controller
 					$temp = DB::table('customers')        
 					         ->where([
 		                              ['user',$me],
-		                              ['form',$from],
+		                              ['form',$form],
 		                              ['uid',$winId]
 		                             ])->get();
 
@@ -163,7 +167,7 @@ class PrizeController extends Controller
 					    DB::table('customers')        
 					         ->where([
 		                              ['user',$me],
-		                              ['form',$from],
+		                              ['form',$form],
 		                              ['uid',$winId]
 		                             ])
 					         ->update(['prize' => $prize->pid]);
@@ -180,7 +184,7 @@ class PrizeController extends Controller
 
         $winners = DB::table('customers')->orderBy('id')->where([
                             ['user',$me],
-                            ['form',$from]
+                            ['form',$form]
                             ])->get();
 
         $result = array();
@@ -193,7 +197,7 @@ class PrizeController extends Controller
         	  $prize = DB::table('prizes')->orderBy('id')
 			                        ->where([
 			                                ['user',$me],
-			                                ['form',$from],
+			                                ['form',$form],
 			                                ['pid',$winner->prize]
 			                                ])
 			                        ->get();
