@@ -41,11 +41,15 @@ class HomeController extends Controller
     public function index(Request $request) {
 
         Socialite::with('jinshuju')->refresh();
-
-        $ExpiresIn = session('expires_in');
-        $token = session('access_token');
-        $refreshToken = session('refresh_token');
+        
         $email= session('email');
+        $user = DB::table('users')->where('email',$email)
+                                  ->get();
+
+        $ExpiresIn = $user[0]->expires_in;
+        $token = $user[0]->access_token;
+        $refreshToken = $user[0]->refresh_token;
+
 
         $forms = Socialite::with('jinshuju')->getFormByToken($token);
 
@@ -57,8 +61,12 @@ class HomeController extends Controller
     {
       Socialite::with('jinshuju')->refresh();
       $form = $request->select_form;
+      
+      $email= session('email');
+      $user = DB::table('users')->where('email',$email)
+                                ->get();
 
-      $token = session('access_token');
+      $token = $user[0]->access_token;
       if(isset($form)){ 
         $fields = Socialite::with('jinshuju')->getFeildByToken($form,$token);
 
