@@ -15,12 +15,12 @@ class CreatePrizesTable extends Migration
         Schema::dropIfExists('prizes');
         Schema::create('prizes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('user')->index();
+            $table->string('user');
             $table->string('form');
             $table->tinyInteger('pid');
             $table->string('name');
             $table->integer('number');
-            $table->float('chance');
+            $table->decimal('chance',8,6);
             $table->timestamps();
         });
     }

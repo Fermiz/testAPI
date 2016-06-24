@@ -15,8 +15,9 @@ class CreateCustomersTable extends Migration
         Schema::dropIfExists('customers');
         Schema::create('customers', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('user')->index();
-            $table->string('form')->index();
+            $table->string('user');
+            $table->string('form');
+            $table->tinyInteger('uid');
             $table->string('name');
             $table->string('phone')->unique();
             $table->string('address');

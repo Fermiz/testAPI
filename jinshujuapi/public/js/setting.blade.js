@@ -1,4 +1,4 @@
-$(document).ready(function(){ 
+$(function(){ 
   
   $('#add-prize').bootstrapValidator({
               message: '输入值无效！',

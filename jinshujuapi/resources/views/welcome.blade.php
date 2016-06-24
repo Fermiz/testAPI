@@ -16,12 +16,13 @@
                                选择表单
                         </button>
                     <form action="{{ url('settings') }}" method="POST" class="form-horizontal">
-                        <div id="select-form" class="form-group center">
+                        <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
+                        
+                        <div id="select-form" class="form-group">
                             <label for="prize" class="col-sm-3 control-label">关联表单</label>
-                            <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
 
                             <div class="col-sm-6">
-                                <select name="form" id="selectForm" class="select-control">
+                                <select name="form" id="selectForm" class="selectpicker">
                                     <option value="nochoice" selected="selected">请选择表单</option>
                                     @foreach ($forms as $form)
                                     <option value="{{$form['token']}}">{{$form['name']}}</option>
@@ -34,7 +35,9 @@
                             <label for="prize" class="col-sm-3 control-label">姓名字段</label>
 
                             <div class="col-sm-6">
-                                <select name="name" id="selectName" class="select-control"></select>
+                                <select name="name" id="selectName" class="selectpicker">
+                                    <option value="nochoice" selected="selected">请选择字段</option>
+                                </select>
                             </div>
                         </div>
 
@@ -42,7 +45,9 @@
                             <label for="prize" class="col-sm-3 control-label">手机字段</label>
 
                             <div class="col-sm-6">
-                                <select name="phone" id="selectPhone" class="select-control"></select>
+                                <select name="phone" id="selectPhone" class="selectpicker">
+                                    <option value="nochoice" selected="selected">请选择字段</option>
+                                </select>
                             </div>
                         </div>
 
@@ -84,5 +89,6 @@
         </div>
     </div>
 </div>
+
 
 @endsection

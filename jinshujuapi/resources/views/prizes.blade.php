@@ -10,14 +10,14 @@
         <div class="panel center">
             <a href="/home" class="btn btn-default">设置</a>
             <button id="start" class="btn btn-primary">开始抽奖</button>
-            <button id="again" class="btn btn-primary hide"><i class="fa fa-btn fa-refresh"></i>重新开始</button>
+            <button id="again" class="btn btn-primary hide"><i class="fa fa-btn fa-refresh"></i>再来一次</button>
             
         </div>
         <!-- TODO: 中奖用户 -->
         <div id="winners" class="panel panel-default hide">
             <div class="panel-heading">中奖用户</div>
             <div class="panel-body">
-                <table id="list" class="able table-striped">
+                <table id="list" class="table table-striped">
                     <!-- Table Headings -->
                     <thead></thead>
                     <!-- Table Body -->
@@ -33,7 +33,6 @@
 
             <div class="panel-body">
                 <table class="table table-striped">
-
                     <!-- Table Headings -->
                     <thead>
                         <th>姓名</th>
@@ -44,12 +43,11 @@
                     <tbody>
                         @foreach ($customers as $customer)
                         <tr>
-                            <!-- Prize Name -->
                             <td class="table-text">
                                 <div>{{ $customer->name }}</div>
                             </td>
                             <td class="table-text">
-                                <div class="phonenum" >{{ $customer->phone}}</div>
+                                <div class="phonenum" >{{ $customer->phone }}</div>
                             </td>
                         </tr>
                         @endforeach

@@ -85,14 +85,12 @@ class SettingController extends Controller
             'chance' => 'required|numeric|min:0|max:1',
         ]);
 
-        $prizes = DB::table('prizes')->orderBy('id')
+        $pid = DB::table('prizes')->orderBy('id')
 			                        ->where([
-			                                ['user',$me],
-			                                ['form',$form]
-			                                ])
-			                        ->get();  
-         $pid = count($prizes) + 1;
-        
+    	                                ['user',$me],
+    	                                ['form',$form]
+	                                ])->count(); 
+
         date_default_timezone_set('Asia/Shanghai');
         $current_time = Carbon::now();
 
@@ -100,7 +98,7 @@ class SettingController extends Controller
                     [ 
                       'user' => $me,
                       'form' => $form,
-                      'pid' => $pid,
+                      'pid' => $pid + 1,
                       'name' => $request->name,
                       'number' => $request->number, 
                       'chance' => $request->chance,  

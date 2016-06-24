@@ -23,12 +23,13 @@ function getSelectVal(){
             }
             $("#selectName").append("<option value='nochoice' selected='selected'>请选择字段</option>").append(option1);
             $("#selectPhone").append("<option value='nochoice' selected='selected'>请选择字段</option>").append(option2);
-
+            
+            $('.selectpicker').selectpicker('refresh');
         }
     });
 }
 
-$(document).ready(function(){ 
+$(function(){ 
     $("#begin").attr("disabled", true);
     var num = $(".phonenum");
     for(i=0;i<num.length;i++)
@@ -36,6 +37,11 @@ $(document).ready(function(){
         var phonenum = num.eq(i).html();
         num.eq(i).html(phonenum.replace(/(\d{3})(\d{4})(\d{4})/,"$1****$3"));
     }
+
+    $('.selectpicker').selectpicker({  
+          style: 'btn-default',  
+          size: 10  
+    });  
 
     //关联表单
     $("#selectForm").change(function(){ 

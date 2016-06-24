@@ -46,10 +46,17 @@ class PrizeController extends Controller
                                 ['phone',$data[$i]["$phoneid"]['value']]
                                 ])->count();
                   if($search == 0){
+
+                  	$counter = DB::table('customers')->where([
+                                ['user',$me	],
+                                ['form',$from]
+                                ])->count();
+
                     DB::table('customers')->insert(
                     [ 
                       'user' => $me,
                       'form' => $from,
+                      'uid' => $counter + 1,
                       'name' => $data[$i]["$nameid"], 
                       'phone' => $data[$i]["$phoneid"]['value'],  
                       'created_at' => $current_time,
@@ -70,10 +77,17 @@ class PrizeController extends Controller
                             ])->count();
 
                 if($search == 0){
+
+                	$counter = DB::table('customers')->where([
+                                ['user',$me	],
+                                ['form',$from]
+                                ])->count();
+
                     DB::table('customers')->insert(
                     [ 
                       'user' => $me,
                       'form' => $from,
+                      'uid' => $counter + 1,
                       'name' => $data[$i]["$nameid"], 
                       'phone' => $data[$i]["$phoneid"],  
                       'created_at' => $current_time,
@@ -108,16 +122,15 @@ class PrizeController extends Controller
                                 ])
                         ->get();
 
-        $chance = count($customers);
+        $num = count($customers);
 
-        foreach ($customers as $customer){
-	      DB::table('customers')->orderBy('id')
-	                        ->where([
-	                                ['user',$me],
-	                                ['form',$from]
-	                                ])
-	                        ->update(['prize' => 0]);
-		}
+  //       foreach ($customers as $customer){
+	 //      DB::table('customers')->where([
+	 //                                ['user',$me],
+	 //                                ['form',$from]
+	 //                                ])
+	 //                        ->update(['prize' => 0]);
+		// }
 
         $prizes = DB::table('prizes')->orderBy('id')
 			                        ->where([
@@ -128,31 +141,73 @@ class PrizeController extends Controller
 
         foreach ($prizes as $prize){
             
-            $max = $chance*$prize->chance;
+            $remain = $prize->number;
 
-			for($i=0; $i< $max; $i++){  
+			for($i=0; $i<$remain; $i++){
 
-				$winId = mt_rand(0, $chance);
+				$rand = mt_rand(1, $num)/$num;
+				$chance = $prize->chance;
 
-			    DB::table('customers')
-			         ->where('id', $winId)
-			         ->update(['prize' => $prize->id]);
+				if ($chance >= $rand && $remain >= 0){
 
+					$winId = mt_rand(1, $num);
+
+					$temp = DB::table('customers')        
+					         ->where([
+		                              ['user',$me],
+		                              ['form',$from],
+		                              ['uid',$winId]
+		                             ])->get();
+
+                    if ($temp[0]->prize == 0){
+					    DB::table('customers')        
+					         ->where([
+		                              ['user',$me],
+		                              ['form',$from],
+		                              ['uid',$winId]
+		                             ])
+					         ->update(['prize' => $prize->pid]);
+
+					    $remain = $remain - 1;
+
+					    DB::table('prizes')
+					         ->where('id',$prize->id)
+		                     ->update(['number' => $remain]);
+		            }
+                }
 			}
 		}
 
         $winners = DB::table('customers')->orderBy('id')->where([
                             ['user',$me],
-                            ['form',$from],
-                            ['prize',2]
+                            ['form',$from]
                             ])->get();
 
+        $result = array();
+        $i=0;
 
-        foreach ($winners as &$winner){
-             $winner->phone = preg_replace("/(\d{3})(\d{4})(\d{4})/","$1****$3",$winner->phone);
+        foreach ($winners as $winner){
+
+        	if ( $winner->prize != 0){
+
+        	  $prize = DB::table('prizes')->orderBy('id')
+			                        ->where([
+			                                ['user',$me],
+			                                ['form',$from],
+			                                ['pid',$winner->prize]
+			                                ])
+			                        ->get();
+
+              $result[$i]= array(
+              			   'name' => $winner->name,
+              	           'phone'=> preg_replace("/(\d{3})(\d{4})(\d{4})/","$1****$3",$winner->phone),
+              	           'prize'=> $prize[0]->name
+              	           );
+              $i=$i+1;
+            }
         };
 
-        return json_encode($winners);
+        return json_encode($result);
     }
 
 

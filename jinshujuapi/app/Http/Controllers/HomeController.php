@@ -34,7 +34,7 @@ class HomeController extends Controller
 
     public function callback(Request $request) {
         $oauthUser = Socialite::with('jinshuju')->user();
-
+  
         return redirect("/home");
     }
 
@@ -57,6 +57,7 @@ class HomeController extends Controller
     {
       Socialite::with('jinshuju')->refresh();
       $form = $request->select_form;
+
       $token = session('access_token');
       if(isset($form)){ 
         $fields = Socialite::with('jinshuju')->getFeildByToken($form,$token);
