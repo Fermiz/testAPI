@@ -19,7 +19,7 @@ class CreateCustomersTable extends Migration
             $table->string('form');
             $table->tinyInteger('uid');
             $table->string('name');
-            $table->string('phone')->unique();
+            $table->string('phone');
             $table->string('address');
             $table->tinyInteger('prize')->default(0);
             $table->timestamps();

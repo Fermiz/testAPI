@@ -18,8 +18,10 @@ function getSelectVal(){
             var option1="";
             var option2="";
             for(i=0;i<count;i++){
-               option1 +="<option value='"+data[i].api_code+"'>"+data[i].label+"</option>";
-               option2 +="<option value='"+data[i].api_code+"'>"+data[i].label+"</option>";
+               if(data[i].label != ""){
+                   option1 +="<option value='"+data[i].api_code+"'>"+data[i].label+"</option>";
+                   option2 +="<option value='"+data[i].api_code+"'>"+data[i].label+"</option>";
+                }
             }
             $("#selectName").append("<option value='nochoice' selected='selected'>请选择字段</option>").append(option1);
             $("#selectPhone").append("<option value='nochoice' selected='selected'>请选择字段</option>").append(option2);
