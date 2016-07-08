@@ -1,10 +1,12 @@
 branch-defaults:
   default:
     environment: gd-lottery-dev
+  master:
+    environment: gd-lottery-dev
 global:
   application_name: gd-lottery
   default_ec2_keyname: null
   default_platform: PHP 5.6
   default_region: ap-southeast-1
   profile: eb-cli
-  sc: null
+  sc: git
